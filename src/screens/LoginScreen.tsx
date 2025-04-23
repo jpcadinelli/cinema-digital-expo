@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '../config/env';
 
@@ -57,7 +57,13 @@ const LoginScreen = ({ navigation }: any) => {
         secureTextEntry
       />
 
-      <Button title={loading ? 'Entrando...' : 'Entrar'} onPress={handleLogin} disabled={loading} />
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin} disabled={loading}>
+        <Text style={styles.loginButtonText}>Entrar</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <Text style={styles.registerText}>Criar conta</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -84,5 +90,25 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: 12,
     marginBottom: 16,
+  },
+  registerText: {
+    marginTop: 16,
+    textAlign: 'center',
+    color: '#007AFF',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  loginButton: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginTop: 8,
+    marginBottom: 16,
+  },
+  loginButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
   },
 });
