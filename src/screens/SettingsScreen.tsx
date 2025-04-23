@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useThemeContext } from '../contexts/ThemeContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const SettingsScreen = ({ navigation }: any) => {
   const handleLogout = async () => {
@@ -13,7 +13,7 @@ const SettingsScreen = ({ navigation }: any) => {
     });
   };
 
-  const { toggleTheme } = useThemeContext();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <View style={styles.container}>

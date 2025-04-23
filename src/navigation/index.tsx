@@ -1,5 +1,5 @@
 // src/navigation/index.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,7 +10,7 @@ import HomeScreen from '../screens/HomeScreen';
 import UserScreen from '../screens/UserScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import { useThemeContext } from '../contexts/ThemeContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,7 +41,7 @@ function AppTabs() {
 }
 
 export default function AppNavigator() {
-  const { theme } = useThemeContext();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <NavigationContainer theme={theme}>
