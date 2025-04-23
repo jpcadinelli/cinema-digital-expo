@@ -24,11 +24,7 @@ const LoginScreen = ({ navigation }: any) => {
       if (response.status === 200 && json.error === '') {
         const token = json.data;
         await AsyncStorage.setItem('@token', token);
-        Alert.alert('Login realizado com sucesso!');
-
-        // aqui você pode navegar para a próxima tela:
-        // navigation.replace('Home');
-
+        navigation.replace('Main');
       } else {
         Alert.alert('Erro ao fazer login', json.error);
       }
