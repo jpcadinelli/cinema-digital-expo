@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useThemeContext } from '../contexts/ThemeContext';
 
 const SettingsScreen = ({ navigation }: any) => {
   const handleLogout = async () => {
@@ -12,10 +13,14 @@ const SettingsScreen = ({ navigation }: any) => {
     });
   };
 
+  const { toggleTheme } = useThemeContext();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>⚙️ Configurações</Text>
       <Button title="Sair da conta" onPress={handleLogout} color="red" />
+
+      <Button title="Alternar tema" onPress={toggleTheme} />
     </View>
   );
 };

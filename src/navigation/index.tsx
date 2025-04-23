@@ -1,13 +1,16 @@
+// src/navigation/index.tsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import UserScreen from '../screens/UserScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { Ionicons } from '@expo/vector-icons';
 import RegisterScreen from '../screens/RegisterScreen';
+import { useThemeContext } from '../contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -15,7 +18,6 @@ const Tab = createBottomTabNavigator();
 function AppTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName = '';
@@ -39,11 +41,13 @@ function AppTabs() {
 }
 
 export default function AppNavigator() {
+  const { theme } = useThemeContext();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }}/> 
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={AppTabs} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
