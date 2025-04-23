@@ -1,15 +1,42 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../config/env';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    if (email === 'teste@teste.com' && senha === '123456') {
-      Alert.alert('Login feito com sucesso!');
-    } else {
-      Alert.alert('Credenciais inválidas');
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/api/v1/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password: senha }),
+      });
+
+      const json = await response.json();
+
+      if (response.status === 200 && json.error === '') {
+        const token = json.data;
+        await AsyncStorage.setItem('@token', token);
+        Alert.alert('Login realizado com sucesso!');
+
+        // aqui você pode navegar para a próxima tela:
+        // navigation.replace('Home');
+
+      } else {
+        Alert.alert('Erro ao fazer login', json.error);
+      }
+    } catch (err) {
+      console.error(err);
+      Alert.alert('Erro de conexão', 'Não foi possível conectar com o servidor.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,7 +61,7 @@ const LoginScreen = () => {
         secureTextEntry
       />
 
-      <Button title="Entrar" onPress={handleLogin} />
+      <Button title={loading ? 'Entrando...' : 'Entrar'} onPress={handleLogin} disabled={loading} />
     </View>
   );
 };
