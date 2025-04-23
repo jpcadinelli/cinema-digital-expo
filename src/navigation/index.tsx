@@ -35,7 +35,7 @@ function AppTabs() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Usuário" component={UserScreen} />
-      <Tab.Screen name="Configurações" component={SettingsScreen} />
+      <Tab.Screen name="Configurações" component={SettingsScreen} options={{ headerShown: true }} />
     </Tab.Navigator>
   );
 }

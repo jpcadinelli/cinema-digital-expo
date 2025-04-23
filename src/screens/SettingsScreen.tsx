@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from '../contexts/ThemeContext';
 
@@ -17,10 +17,13 @@ const SettingsScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>⚙️ Configurações</Text>
-      <Button title="Sair da conta" onPress={handleLogout} color="red" />
+      <TouchableOpacity style={styles.button} onPress={() => toggleTheme()}>
+        <Text style={styles.buttonText}>Alternar tema</Text>
+      </TouchableOpacity>
 
-      <Button title="Alternar tema" onPress={toggleTheme} />
+      <TouchableOpacity style={styles.buttonLogout} onPress={() => handleLogout()}>
+        <Text style={styles.buttonText}>Sair da conta</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -33,9 +36,32 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
+    gap: 16,
   },
   title: {
     fontSize: 22,
     marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginTop: 8,
+    marginBottom: 16,
+    width: '100%',
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  buttonLogout: {
+    backgroundColor: 'red',
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginTop: 8,
+    marginBottom: 16,
+    width: '100%',
   },
 });
